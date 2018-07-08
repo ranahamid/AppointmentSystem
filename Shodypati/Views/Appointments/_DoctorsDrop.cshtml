@@ -1,0 +1,58 @@
+﻿@model Shodypati.Models.DoctorViewModel
+
+<div class="col-md-12">
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-bubble font-dark hide"></i>
+                <span class="caption-subject font-hide bold uppercase">Doctors List</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                @if (Model.DoctorslList != null && Model.DoctorslList.Count > 0)
+                {
+                    foreach (var item in Model.DoctorslList)
+                    {
+                        <div class="col-md-4">
+                            <div class="mt-widget-1">
+                                <div class="mt-icon">
+                                    @Html.ActionLink("Set Appointment", "Create", new { doctorId = item.Id })
+                                </div>
+                                <div class="mt-img">
+                                    <a href="@item.VisitingCard" data-lightbox="image-1" data-title="@item.FullName">
+                                        <img src="@item.VisitingCard" class="img-display" />
+                                    </a>
+                                </div>
+                                <div class="mt-body">
+                                    <h3 class="mt-username">@item.FullName</h3>
+                                    <p class="mt-user-title"> Designation: @item.Designation </p>
+                                    <div class="mt-stats">
+                                        <div class="btn-group btn-group btn-group-justified">
+                                            <a href="javascript:;" class="btn font-red">
+                                                <i class="icon-bubbles"></i>Clinic: @item.ClinicHospitalName
+                                            </a>
+                                            <a href="javascript:;" class="btn font-green">
+                                                <i class="icon-social-twitter"></i>Phone:  @item.PhoneNumber
+                                            </a>
+                                            <a href="javascript:;" class="btn font-yellow">
+                                                <i class="icon-emoticon-smile"></i>VisitFee: @item.VisitFee
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        No doctor's found.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
