@@ -18,7 +18,7 @@ namespace Shodypati.Controllers
     [Authorize]
     [ExceptionHandler]
     public class AccountController : BaseController
-    {
+    { 
         public AccountController()
         {
         }
