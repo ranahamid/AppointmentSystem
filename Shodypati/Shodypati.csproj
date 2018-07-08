@@ -310,6 +310,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\script.sql" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\EntityFramework.dll" />
@@ -4392,7 +4393,6 @@
     <Content Include="Views\Appointments\_DoctorsDrop.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\images\products\19950203\thumbs\" />
     <Folder Include="Content\images\products\24232414\thumbs\" />
     <Folder Include="Content\images\products\26406821\thumbs\" />
