@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Appointment" Class="AppointmentSysDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\sqlexpress;Initial Catalog=Appointment;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.LogTbl" Member="LogTbls">
+    <Type Name="LogTbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExceptionMessage" Type="System.String" DbType="NVarChar(3050)" CanBeNull="true" />
+      <Column Name="ExceptionStackTrace" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ControllerName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="IpAddress" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Browser" Type="System.String" DbType="NVarChar(3050)" CanBeNull="true" />
+      <Column Name="OS" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ActionName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="CreatedOnUtc" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DoctorAppointmentTbl" Member="DoctorAppointmentTbls">
+    <Type Name="DoctorAppointmentTbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PatientName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AssignDoctorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AssignDoctorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdvanceAmount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RemainingAmount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="AppointmentTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Serial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedOnUtc" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="UpdatedOnUtc" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="IsPastDate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DoctorTbl" Member="DoctorTbls">
+    <Type Name="DoctorTbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RegistrationType" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ClinicHospitalName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Designation" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="YearOfExperience" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="WorkingArea" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Addresss" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CanVisitDays" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="VisitTimeStart" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="VisitTimeEnd" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="SlotDuration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VisitFee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VisitingCard" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="CreatedOnUtc" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="UpdatedOnUtc" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DoctorWorkingAreaTbl" Member="DoctorWorkingAreaTbls">
+    <Type Name="DoctorWorkingAreaTbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WorkingArea" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AppointmentStatusTbl" Member="AppointmentStatusTbls">
+    <Type Name="AppointmentStatusTbl">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
