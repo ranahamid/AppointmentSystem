@@ -35,19 +35,116 @@ namespace AppointmentSys.Controllers
             return await IndexBaseTask();
         }
 
-        public async Task<ActionResult> IndexBaseTask()
+        public async Task<ActionResult> List()
+        {           
+            AppointmentViewModel vm = new AppointmentViewModel();
+            AppointmentSelectList appointment = await GetDoctorsAndWorkingArea();
+            vm.appointmentSelect = appointment;
+
+            url = baseUrl + "api/AppointmentsApi";
+            var responseMessage = await client.GetAsync(url);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                var entity = JsonConvert.DeserializeObject<List<Appointment>>(responseData);
+                vm.appointment = entity;
+            }
+            vm.baseUrl = baseUrl;
+            vm.SearchType = GetAllSearchType();
+            return View(vm);
+        }
+
+        public async Task<ActionResult> GetAppointmentData(string selectedDoctorId, string doctortypeId, string searchTypeId)
         {
+            AppointmentViewModel vm = new AppointmentViewModel();
+            List<Appointment> entity = new List<Appointment>();
+            url = baseUrl + "api/AppointmentsApi";
+            var responseMessage = await client.GetAsync(url);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                entity = JsonConvert.DeserializeObject<List<Appointment>>(responseData);             
+            }
+            // bind
+           
+           
+
+            AppointmentSelectList appSelect = new AppointmentSelectList();
+            var AllDoctors = await GetAllDoctor();
+            appSelect.AllDoctors = AllDoctors;
+
+            //doctortypeId 
+            if (!string.IsNullOrEmpty(doctortypeId))
+            {
+                int docType = Int32.Parse(doctortypeId);
+                var entities = Db.DoctorWorkingAreaTbls.Select(x => new SelectListItem()
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.WorkingArea,
+                    Selected = (x.Id == docType)
+                }).ToList();
+
+                appSelect.SelectedDoctorWorkingTypeId = doctortypeId;
+                appSelect.AllWorkingSelectListItems = entities;
+            }
+            else
+            {
+                var allWorkingTypes = await GetAllDoctorWorkingTypes();
+                appSelect.AllWorkingSelectListItems = allWorkingTypes;
+            }
+            if (!string.IsNullOrEmpty(selectedDoctorId))
+            {
+                appSelect.SelectedDoctorId = selectedDoctorId;
+            }
+            else
+            {
+
+            }
+
+            if (!string.IsNullOrEmpty(searchTypeId))
+            {
+                vm.SearchTypeId = searchTypeId;
+            }
+            else
+            {
+
+            }
+
+
+            vm.appointmentSelect = appSelect;
+            //get others
+
+            vm.appointment = entity;
+
+            
+            vm.baseUrl = baseUrl;
+            vm.SearchType = GetAllSearchType();
+            return View("List", vm);
+        }
+
+        public async Task<AppointmentSelectList> GetDoctorsAndWorkingArea()
+        {
+            AppointmentSelectList appointment = new AppointmentSelectList();
             var entity = await GetAllDoctor();
             var allWorkingTypes = await GetAllDoctorWorkingTypes();
 
             if (entity != null)
             {
-                var model = new AppointmentSelectList
+                appointment = new AppointmentSelectList
                 {
                     AllDoctors = entity,
                     AllWorkingSelectListItems = allWorkingTypes
-                };
-                return View("Index", model);
+                };            
+            }
+            return appointment;
+        }
+
+        public async Task<ActionResult> IndexBaseTask()
+        {
+            AppointmentSelectList appointment =await GetDoctorsAndWorkingArea();
+            if (appointment != null)
+            {
+                return View("Index", appointment);
             }
             throw new Exception("Exception");
         }
@@ -70,8 +167,6 @@ namespace AppointmentSys.Controllers
         // GET: Appointments/Create
         public async Task< ActionResult > Create(int doctorId)
         {
-            //var doctorId = appointmentSelect.SelectedDoctorId;
-
             var responseMessage = await client.GetAsync(url+"/"+ "GetByDoctor" + "/" + doctorId);
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -144,6 +239,17 @@ namespace AppointmentSys.Controllers
             };
 
             return PartialView("_DoctorsDrop", vm);
+        }
+
+        [AllowAnonymous]
+        public ActionResult FillDoctorsDropDown(string id)
+        {
+            var vm = new AppointmentSys.Models.DoctorViewModelDropDown()
+            {
+                SelectedWorkingTypeId = id
+            };
+
+            return PartialView("_DoctorsDropDown", vm);
         }
 
         public async  Task<ActionResult> GetDoctorAppoinmentLists(string doctorId)

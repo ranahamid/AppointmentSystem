@@ -1,0 +1,4 @@
+﻿@model AppointmentSys.Models.DoctorViewModelDropDown
+
+@Html.DropDownListFor(m => Model.SelectedDoctorId, new SelectList(Model.DoctorslList, "Value", "Text"), "Select Doctor", new { @id = "SelectedDoctor", @class = "form-control" })
+

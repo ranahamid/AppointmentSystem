@@ -1,0 +1,132 @@
+﻿@using AppointmentSys.Models
+@model AppointmentSys.Models.AppointmentViewModel
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Index")
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="form-group row">
+                @Html.LabelFor(m => m.appointmentSelect.SelectedDoctorWorkingTypeId, new { @class = "col-md-2 control-label" })
+
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => Model.appointmentSelect.SelectedDoctorWorkingTypeId, Model.appointmentSelect.AllWorkingSelectListItems, "---Select Doctor Type---", new { @id = "doctortypeid", @class = "form-control", @onchange = "FillDoctors()" })
+                    @Html.ValidationMessageFor(model => model.appointmentSelect.SelectedDoctorWorkingTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                @Html.LabelFor(m => m.SearchTypeId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => Model.SearchTypeId, Model.SearchType, "---Select Search Type---", new { @id = "searchType", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SearchTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="form-group row">
+                @Html.Label("Select Doctor ", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10" id="doctorsdiv">
+                    @Html.Partial("_DoctorsDropDown", new DoctorViewModelDropDown()
+                    {
+                        SelectedWorkingTypeId = (string)Model.appointmentSelect.SelectedDoctorWorkingTypeId
+                    })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+</div>
+
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="button" value="Get" class="btn btn-default" onclick="onSubmit()" />
+    </div>
+</div>
+
+
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.PatientName)</th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.AssignDoctorName)</th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.Address)</th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.PhoneNumber) </th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.StartTime) </th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.AppointmentTime)</th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.Serial) </th>
+            <th>@Html.DisplayNameFor(model => model.NewAppointment.CreatedOnUtc)</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.appointment)
+        {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.PatientName)</td>
+            <td>@Html.DisplayFor(modelItem => item.AssignDoctorName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.AppointmentTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.Serial)</td>
+            <td>@Html.DisplayFor(modelItem => item.CreatedOnUtc)</td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function onSubmit() {
+  
+        var selectedDoctorId = $('#SelectedDoctor').val();
+        console.log("SelectedDoctor: " + selectedDoctorId);
+        var doctortypeId = $('#doctortypeid').val();
+        console.log("doctortypeid: " + doctortypeId);
+        var searchTypeId = $('#searchType').val();
+        console.log("searchTypeId: " + searchTypeId);
+        var baseUrl = "@Model.baseUrl";
+        var loc = baseUrl + "Appointments/GetAppointmentData?selectedDoctorId=" + selectedDoctorId + "&doctortypeId=" + doctortypeId + "&searchTypeId=" + searchTypeId;
+ 
+        window.location.assign(loc)
+    }
+</script>
+
+<script>
+    function FillDoctors() {
+        var id = $('#doctortypeid').val();
+
+        $("#doctorsdiv").empty();
+        $("#doctorsdiv").load('/Appointments/FillDoctorsDropDown', { id: id }, function (responseTxt, statusTxt, xhr) {
+            var doctorselected = $('#doctortypeid :selected').val();
+            console.log("Selected: " + doctorselected);
+        });
+    }
+</script>

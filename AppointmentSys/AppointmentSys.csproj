@@ -301,11 +301,13 @@
     <Compile Include="Models\AppointmentStatus.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\DoctorViewModelDropDown.cs" />
     <Compile Include="Models\DoctorWorkingArea.cs" />
     <Compile Include="Models\FilesViewModel.cs" />
     <Compile Include="Models\HttpContextCacheAdapter.cs" />
     <Compile Include="Models\ICacheStorage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NullObjectCache.cs" />
@@ -4402,6 +4404,8 @@
     <Content Include="Views\AppointmentStatus\Details.cshtml" />
     <Content Include="Views\AppointmentStatus\Edit.cshtml" />
     <Content Include="Views\AppointmentStatus\Index.cshtml" />
+    <Content Include="Views\Appointments\List.cshtml" />
+    <Content Include="Views\Shared\_DoctorsDropDown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\products\19950203\thumbs\" />

@@ -52,6 +52,21 @@ namespace AppointmentSys.Models
 
         public Doctor DoctorDetails { get; set; }
 
+       
+    }
+
+    public class AppointmentViewModel
+    {
+        public AppointmentSelectList appointmentSelect { get; set; }
+        public List<Appointment> appointment { get; set; }
+
+        public Appointment NewAppointment { get; set; }
+
+        public List<SelectListItem> SearchType { get; set; }
+
+        public string SearchTypeId { get; set; }
+
+        public string baseUrl { get; set; }
     }
 
     public class AppointmentSelectList

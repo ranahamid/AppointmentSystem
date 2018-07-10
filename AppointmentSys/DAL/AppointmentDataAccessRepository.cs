@@ -23,7 +23,7 @@ namespace AppointmentSys.DAL
         }
         public IEnumerable<Appointment> Get()
         {
-            var entities = Db.DoctorAppointmentTbls.Select(x => new Appointment()
+            var entities = Db.DoctorAppointmentTbls.OrderBy(x=>x.StartTime).Select(x => new Appointment()
             {
                 Id = x.Id,
                 PatientName = x.PatientName,
@@ -35,6 +35,7 @@ namespace AppointmentSys.DAL
                 RemainingAmount = x.RemainingAmount,
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,
+                AppointmentTime= x.AppointmentTime,
                 CreatedOnUtc = x.CreatedOnUtc,
                 UpdatedOnUtc = x.UpdatedOnUtc,
                 IsPastDate = x.IsPastDate

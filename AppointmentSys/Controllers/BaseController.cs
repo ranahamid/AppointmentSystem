@@ -78,19 +78,33 @@ namespace AppointmentSys.Controllers
         {
             List<SelectListItem> days = new List<SelectListItem>
             {
-                new SelectListItem { Value = "0", Text = "রবিবার"},
-                new SelectListItem { Value = "1", Text = "সোমবার"},
-                new SelectListItem { Value = "2", Text = "মঙ্গলবার"},
-                new SelectListItem { Value = "3", Text = "বুধবার"},
-                new SelectListItem { Value = "4", Text = "বৃহস্পতিবার"},
-                new SelectListItem { Value = "5", Text = "শুক্রবার"},
-                new SelectListItem { Value = "6", Text = "শনিবার"},
+                new SelectListItem { Value = "0", Text = "Sunday"},
+                new SelectListItem { Value = "1", Text = "Monday"},
+                new SelectListItem { Value = "2", Text = "Tuesday"},
+                new SelectListItem { Value = "3", Text = "Wednesday"},
+                new SelectListItem { Value = "4", Text = "Thursday"},
+                new SelectListItem { Value = "5", Text = "Friday"},
+                new SelectListItem { Value = "6", Text = "Saturday"},
 
             };
             return days;
         }
 
-      
+        public List<SelectListItem> GetAllSearchType()
+        {
+            List<SelectListItem> days = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "0", Text = "All"},
+                new SelectListItem { Value = "1", Text = "Today"},
+                new SelectListItem { Value = "2", Text = "Next 7 Days"},
+                new SelectListItem { Value = "3", Text = "Next 30 Days"},
+                new SelectListItem { Value = "4", Text = "Previous 7 Days"},
+                new SelectListItem { Value = "5", Text = "Previous 30 Days"},               
+
+            };
+            return days;
+        }
+
         public List<string> GetListFromCommaSeparatedIntList(string list)
         {
             List<string> daysName = new List<string>();
